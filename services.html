@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Kimberly Cunanan</title>
+    <link rel="icon" type="image/png" href="weblogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+        body {
+            background-color: #f3e7eb;
+            color: #756477;
+            overflow-x: hidden;
+        }
+        .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #f3e7eb;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .header.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    h2 {
+        margin: 0;
+        color: #756477;
+    }
+
+
+
+         .toggle-dark-mode {
+        background: none;
+        border: none;
+        color: #756477;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .toggle-dark-mode:hover {
+        color: #b6b4c2;
+    }
+
+    /* CONTAINERS */
+    
+
+    /* DARK MODE STYLES */
+    .dark-mode {
+        background-color: #222;
+        color: white;
+    }
+    .dark-mode .header {
+        background: rgba(34, 34, 34, 0.9);
+    }
+
+    .dark-mode footer   {
+        background: rgba(34, 34, 34, 0.9);
+        color: white;
+    }
+
+    .dark-mode h2 {
+        color: white;
+    }
+
+    .dark-mode .services-container h3 {
+        color: white;
+    }
+
+    .dark-mode .toggle-dark-mode {
+        color: white;
+    }
+    .dark-mode .services-container, .dark-mode .service-item {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .cta {
+        background: #222;
+        color: white;
+    }
+
+    .dark-mode .modal-content {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .interest-container {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .nav-links a{
+            
+            color: #e0e0e0;
+        }
+        
+
+
+       .nav-links a {
+            text-decoration: none;
+            color: #b6b4c2;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            color: #756477;
+        }
+
+         /* Responsive */
+         @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-title, .about-heading {
+                text-align: center;
+            }
+            .about-right {
+                padding-left: 0;
+            }
+        }
+
+        svg {
+            font-weight: bold;
+            margin-right: -.5%;
+            margin-top: 3%;
+            margin-left: -20%;
+            
+        }
+
+        
+        .nav-item {
+            
+            align-items: center;
+            gap: 1px; /* Space between SVG and text */
+            
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #b6b4c2;
+            font-weight: bold;
+            margin: 0 10px;
+            padding-bottom: 5px; /* Space for the underline */
+            display: inline-block;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 22%;
+            bottom: 0;
+            width: 75%;
+            height: 2px;
+            background-color: #756477; /* Underline color */
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #756477;
+                    
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after { 
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover {
+            color: #756477;
+        }
+
+        .nav-links svg {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+        }
+
+
+
+        .services-container {
+    max-width: 1300px;
+    margin: 90px auto 20px;
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Move down slightly */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Arrange services in a row */
+.services-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.services-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-title {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .services-heading {
+            font-size: 2rem;
+            color: #756477;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .service-item {
+    flex: 1;
+    margin-bottom: 0;
+    padding: 20px;
+    background: #f3e7eb;
+    border-left: 5px solid #756477;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.service-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.service-item:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.service-item:hover::after {
+    opacity: 1;
+}
+
+
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+.cta {
+    text-align: center;
+    padding: 40px;
+    background: #f3e7eb;
+    color: #756477;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #756477;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: background 0.3s ease-in-out;
+    
+}
+
+.cta-button:hover {
+    background: #b6b4c2;
+}
+
+
+
+
+
+/* Make responsive */
+@media (max-width: 768px) {
+    .services-list {
+        flex-direction: column;
+    }
+}
+
+
+        .service-item h3 {
+            color: #756477;
+            font-size: 1.5rem;
+        }
+        .service-item p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .service-item span {
+            font-weight: bold;
+            color: #756477;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background: #f3e7eb;
+            color: #756477;
+            font-size: 0.8rem;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .more-info {
+    display: none;
+}
+
+.toggle-btn {
+    margin-top: 10px;
+    background-color: #f3e7eb;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background: #b6b4c2;
+}
+
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    width: 25vw;
+    height: auto;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+}
+
+.modal.show-modal {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-content {
+    background: white;
+    padding: 15px;
+    width: 85%;
+    max-width: 350px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    left: 7%;
+}
+
+
+.modal-content img {
+    width: 100%; /* Ensure image fits */
+    max-height: 150px; /* Limit height */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 5px;
+}
+
+.modal-content video {
+    width: 100%; /* Adjust width */
+    max-height: 200px; /* Reduce height */
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Adjust for mobile */
+@media (max-width: 768px) {
+    .modal {
+        width: 80vw; /* Wider on small screens */
+    }
+    .modal-content {
+        max-width: 280px; /* Slightly smaller */
+    }
+    .modal-content video {
+        max-height: 180px; /* Smaller video */
+    }
+}
+
+.read-more-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #b6b4c2, #756477);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.read-more-btn:hover {
+    background: linear-gradient(135deg, #756477, #b6b4c2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.read-more-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+        
+
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.full-image {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="header-left">
+            <h2>Kimberly Cunanan</h2>
+            <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a class="nav-item" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Home
+            </a>
+            <a class="nav-item" href="about.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                About
+            </a>
+            
+            <a class="nav-item active" class="nav-item" href="services.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 1 0 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Services
+            </a>
+            <a class="nav-item" href="portfolio.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Portfolio
+            </a>
+            <a class="nav-item" href="contact.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Contact
+            </a>
+           
+        </div>
+    </div>
+
+    
+
+
+
+    <div class="services-container">
+        <p class="service-title">What I Offer</p>
+        <h1 class="services-heading">My Services</h1>
+        <div class="services-list">
+            <div class="service-item">
+                <i class="fas fa-code" style="font-size: 2rem; color: #756477;"></i>
+                <h3>Front End</h3>
+                <p>I specialize in crafting visually stunning, user-friendly, and responsive web interfaces. Using the latest technologies like HTML, CSS, and JavaScript, I build seamless experiences that engage users and enhance functionality. From interactive designs to optimized performance, I ensure that every website is intuitive, fast, and accessible across all devices.</p>
+            
+                <button class="read-more-btn" onclick="openModal('modal1')">View More</button>
+
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal('modal1')">&times;</span>
+                        <h2>Front End Development</h2>
+                        <p>Here are the sample of my works.</p>
+                        <img src="brgy.jpg" alt="Front End Development Example" width="100%">
+                        <img src="reserve.jpg" alt="Front End Development Example" width="100%">
+                        
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="service-item">
+                <i class="fas fa-palette" style="font-size: 2rem; color: #756477;"></i>
+                <h3>Graphic Design</h3>
+                <p>I create visually compelling designs that communicate your brand's message effectively. From logos and marketing materials to social media graphics and website visuals, I craft high-quality designs that enhance brand identity and engagement. With a keen eye for aesthetics and attention to detail, I ensure every design is both impactful and visually appealing.</p>
+            
+                <button class="read-more-btn" onclick="openModal('modal2')">View More</button>
+                
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal('modal2')">&times;</span>
+                        <h2>Graphic Designing</h2>
+                        <p>Here are the sample of my works.</p>
+                        <img src="graphic.png" alt="Graphic Design Example" width="100%">
+                        <img src="graphic2.png" alt="Graphic Design Example" width="100%">
+                        
+                    </div>
+                </div>
+
+            
+            </div>
+            <div class="service-item">
+                <i class="fas fa-film" style="font-size: 2rem; color: #756477;"></i>
+                <h3>Video Editing</h3>
+                <p>I craft engaging and high-quality video content that captivates your audience. From promotional videos and social media clips to professional edits and motion graphics, I enhance your footage with seamless transitions, effects, and storytelling techniques. My goal is to create visually compelling videos that leave a lasting impression and effectively communicate your message.</p>
+            
+                <button class="read-more-btn" onclick="openModal('modal3')">View More</button>
+
+                <div id="modal3" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal('modal3')">&times;</span>
+                        <h2>Video Editing</h2>
+                        <p>Here are the sample of my work.</p>
+                        
+                        <video width="100%" controls>
+                            <source src="video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            
+            </div>
+
+            
+        </div>
+
+        
+
+
+        <div class="cta">
+            <h2>Let's Build Something Amazing</h2>
+            <p>Contact me today to discuss your project.</p>
+            <a href="contact.html" class="cta-button">Get in Touch</a>
+        </div>
+    </div>
+
+    
+    
+
+    <footer class="footer">
+        &copy; 2025 Kimberly Cunanan. All Rights Reserved.
+    </footer>
+
+    <!-- Modal Structure -->
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("header").classList.add("visible");
+                document.querySelector(".services-container").style.opacity = "1";
+        document.querySelector(".services-container").style.transform = "translateY(0)";
+                
+            }, 200); 
+        });
+
+        function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const icon = document.querySelector(".toggle-dark-mode i");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const serviceItems = document.querySelectorAll(".service-item");
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add("visible");
+                }, index * 500); // Staggered animation delay
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    serviceItems.forEach(item => observer.observe(item));
+});
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loader").classList.add("hidden");
+        document.getElementById("header").classList.add("visible");
+        document.querySelector(".services-container").classList.add("visible");
+    }, 500);
+});
+
+document.querySelectorAll(".toggle-btn").forEach(button => {
+    button.addEventListener("click", function () {
+        const moreInfo = this.previousElementSibling; // Selects the `.more-info` div above the button
+        if (moreInfo.style.display === "block") {
+            moreInfo.style.display = "none";
+            this.textContent = "Read More";
+        } else {
+            moreInfo.style.display = "block";
+            this.textContent = "Read Less";
+        }
+    });
+});
+
+
+function openModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add("show-modal");
+        }
+    }
+
+    function closeModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove("show-modal");
+        }
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+        var modals = document.querySelectorAll(".modal");
+        modals.forEach(function(modal) {
+            if (event.target === modal) {
+                modal.classList.remove("show-modal");
+            }
+        });
+    };
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const modalImages = document.querySelectorAll(".modal-content img");
+    
+    modalImages.forEach(img => {
+        img.style.cursor = "pointer"; // Make it clear that the image is clickable
+        
+        img.addEventListener("click", function () {
+            // Create an overlay
+            const overlay = document.createElement("div");
+            overlay.classList.add("image-overlay");
+            
+            // Create an enlarged image
+            const fullImage = document.createElement("img");
+            fullImage.src = this.src;
+            fullImage.classList.add("full-image");
+
+            // Close the overlay when clicked
+            overlay.addEventListener("click", function () {
+                document.body.removeChild(overlay);
+            });
+
+            // Append image to overlay
+            overlay.appendChild(fullImage);
+            document.body.appendChild(overlay);
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Kimberly Cunanan</title>
+    <link rel="icon" type="image/png" href="weblogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+        body {
+            background-color: #f3e7eb;
+            color: #756477;
+            overflow-x: hidden;
+        }
+        /* Header Styling */
+        .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #f3e7eb;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .header.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    h2 {
+        margin: 0;
+        color: #756477;
+    }
+    .toggle-dark-mode {
+        background: none;
+        border: none;
+        color: #756477;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .toggle-dark-mode:hover {
+        color: #b6b4c2;
+    }
+
+    /* CONTAINERS */
+    
+
+    /* DARK MODE STYLES */
+    .dark-mode {
+        background-color: #222;
+        color: white;
+    }
+    .dark-mode .header {
+        background: rgba(34, 34, 34, 0.9);
+    }
+
+    .dark-mode footer   {
+        background: rgba(34, 34, 34, 0.9);
+        color: white;
+    }
+
+    .dark-mode h2 {
+        color: white;
+    }
+    .dark-mode .toggle-dark-mode {
+        color: white;
+    }
+    .dark-mode .about-container, .dark-mode .interest-container, .dark-mode .skills-container, .dark-mode .skills-item {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .interest-container {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .nav-links a{
+            
+            color: #e0e0e0;
+        }
+        
+
+        .nav-links a {
+            text-decoration: none;
+            color: #756477;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            color: #b6b4c2;
+        }
+
+
+        /* About Section */
+        .about-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 90px auto 20px;
+            background: #ffffff;
+            padding: 70px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .about-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .about-title {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .about-heading {
+            font-size: 2rem;
+            color: #756477;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .about-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Keep text aligned to the left */
+            text-align: left;
+            justify-content: flex-start; /* Keep text at the top */
+        }
+
+        .about-text {
+            margin-bottom: 60px; /* Add space between text and image */
+            
+        }
+
+        .about-left img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            display: block;
+            margin-left: -30px;
+            margin-bottom: 50px;
+        
+            /* Add space between text and image */
+        }
+
+        .about-right {
+            flex: 2;
+            padding-left: 20px;
+        }
+        .about-right p {
+            margin: 10px 0;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .about-right b {
+            color: #756477;
+        }
+        .about-right ul {
+            list-style: none;
+            padding: 0;
+        }
+        .about-right ul li {
+            margin: 5px 0;
+        }
+
+
+        /* Interests Section */
+        .interest-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 50px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .interest-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .interest-title {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .interest-heading {
+            font-size: 2rem;
+            color: #756477;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .interest-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #756477, #b6b4c2);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+            height: 60px;
+            text-align: center;
+            gap: 20px;
+            opacity: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .interest-item i {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+        .interest-item:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #f3e7eb, #b6b4c2);
+            color: #ffffff;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 50px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .skills-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skills-title {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .skills-heading {
+            font-size: 2rem;
+            color: #756477;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        .skills-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #756477;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .skills-item i {
+            font-size: 1.8rem;
+            color: #756477;
+            margin-bottom: 10px;
+        }
+        .skills-item span {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #756477;
+        }
+        .experience {
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-style: italic;
+            color: #ffffff;
+            
+            padding: 6px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+        .skills-item:hover {
+            transform: translateY(-5px);
+            background: #756477;
+            color: white;
+        }
+        .skills-item:hover i, .skills-item:hover span, .skills-item:hover .experience {
+            color: white;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-title, .about-heading {
+                text-align: center;
+            }
+            .about-right {
+                padding-left: 0;
+            }
+        }
+
+        svg {
+            font-weight: bold;
+            margin-right: -.5%;
+            margin-top: 3%;
+            margin-left: -20%;
+            
+        }
+
+        
+        .nav-item {
+            
+            align-items: center;
+            gap: 1px; /* Space between SVG and text */
+            
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #b6b4c2;
+            font-weight: bold;
+            margin: 0 10px;
+            padding-bottom: 5px; /* Space for the underline */
+            display: inline-block;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 75%;
+            height: 2px;
+            background-color: #756477; /* Underline color */
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #756477;
+                    
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after { 
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover {
+            color: #756477;
+        }
+
+        .nav-links svg {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background: #f3e7eb;
+            color: #756477;
+            font-size: 0.8rem;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }   
+
+        .education-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 50px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.education-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .education-title {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .education-heading {
+            font-size: 2rem;
+            color: #756477;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .education-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 5px solid #756477;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .education-item h3 {
+            color: #756477;
+            font-size: 1.5rem;
+        }
+        .education-item p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .education-item span {
+            font-weight: bold;
+            color: #756477;
+        }
+
+        .achievements-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        .achievements-list li {
+            margin-bottom: 5px;
+        }
+
+        .dark-mode .education-container h3 {
+        color: white;
+    }
+
+    .dark-mode .toggle-dark-mode {
+        color: white;
+    }
+    .dark-mode .education-container, .dark-mode .education-item {
+        background: #333;
+        color: white;
+    }
+
+    </style>
+
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="header-left">
+            <h2>Kimberly Cunanan</h2>
+            <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a class="nav-item" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Home
+            </a>
+            <a class="nav-item active" class="nav-item" href="about.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                About
+            </a>
+            
+            <a class="nav-item" href="services.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 1 0 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Services
+            </a>
+            <a class="nav-item" href="portfolio.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Portfolio
+            </a>
+            <a class="nav-item" href="contact.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Contact
+            </a>
+           
+        </div>
+    </div>
+
+    <div  class="about-container" id="about-container">
+        <div class="about-left">
+            <div class="about-text">
+                <p class="about-title">Introduction</p>
+                <h1 class="about-heading">ABOUT ME</h1>
+            </div>
+            <img src="landpic.png" alt="Kimberly Cunanan">
+        </div>
+        <div class="about-right">
+            <h1 class="about-heading">IT Student & Aspiring Web Developer</h1>
+            <p>Hello! I'm Kimberly Cunanan, an aspiring Web Developer with a passion for creating dynamic, user-friendly websites. 
+                I enjoy turning ideas into interactive digital experiences using HTML, CSS, JavaScript, and modern frameworks. 
+                Constantly learning and improving, I'm excited to build innovative web solutions and grow in the ever-evolving tech world.</p>
+            <ul>
+                <br>
+                
+                <li><b>📍 Address:</b> Telapayong, Arayat, Pampanga</li>
+                <li><b>📧 E-mail:</b> misskimcnnn@gmail.com</li>
+                <li><b>📞 Phone:</b> +63 910-126-6536</li>
+                <li><b>📅 College Level:</b> 3rd Year</li>
+                <br>
+
+                <p>As a child, my first dream was to become a psychologist. 
+                    Understanding people's thoughts and helping them overcome their struggles fascinated me. 
+                    However, as time passed, I realized that pursuing this dream was financially challenging for my family. 
+                    It was difficult to accept, but I had to face reality. 
+                    My heart led me to the world of IT, and as time went by, I started to love it. 
+                    My curiosity grew—I wanted to understand how technology works, how to install programs, and how to fix issues. 
+                    That curiosity led me to discover my passion for programming, and that’s why I love it today.
+                </p>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="interest-container" id="interests">
+        <p class="interest-title">Personal Favorites</p>
+        <h1 class="interest-heading">INTERESTS</h1>
+        <div class="interest-grid">
+            <div class="interest-item"><i class="fa fa-book"></i> Reading Stories</div>
+            <div class="interest-item"><i class="fa fa-pen"></i> Writing</div>
+            <div class="interest-item"><i class="fa fa-gamepad"></i> Online Games</div>
+            <div class="interest-item"><i class="fa fa-music"></i> Listening to Music</div>
+            <div class="interest-item"><i class="fa fa-car"></i> Road Trip</div>
+            <div class="interest-item"><i class="fa fa-tree"></i> Nature Trip</div>
+            <div class="interest-item"><i class="fa fa-wifi"></i> Browsing Internet</div>
+            <div class="interest-item"><i class="fa fa-paw"></i> Pets</div>
+        </div>
+    </div>
+
+    <div class="education-container" id="education-container">
+        <p class="education-title">Academic Journey</p>
+        <h1 class="education-heading">Educational Background</h1>
+        <div class="education-item">
+            <h3>Don Honorio Ventura State University</h3>
+            <p><span>Degree:</span> Bachelor of Science in Information Technology</p>
+            <p><span>Year:</span> 2022 - Present</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>President's Lister - First Year 1st Semester</li>
+                <li>President's Lister - First Year 2nd Semester</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Magalang Christian Ecumenical School Inc.</h3>
+            <p><span>Strand:</span> Accountancy, Business and Management (ABM)</p>
+            <p><span>Year:</span> 2020 - 2022</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>With Honor - Grade 11</li>
+                <li>With Honor - Grade 12</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Arayat National High School</h3>
+            <p><span>Year:</span> 2016 - 2020</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>With Honor - Grade 7</li>
+                <li>With Honor - Grade 8</li>
+                <li>With Honor - Grade 9</li>
+                <li>With Honor - Grade 10</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Buenavista Elementary School</h3>
+            <p><span>Year:</span> 2009 - 2016</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>First Honor - Grade 1</li>
+                <li>First Honor - Grade 2</li>
+                <li>First Honor - Grade 3</li>
+                <li>First Honor - Grade 4</li>
+                <li>First Honor - Grade 5</li>
+                <li>Class Valedictorian - Grade 6</li>
+               
+            </ul>   
+        </div>
+    </div>
+
+    <div class="skills-container" id="skills">
+        <p class="skills-title">Technical Abilities</p>
+        <h1 class="skills-heading">SKILLS</h1>
+        <div class="skills-grid">
+            <div class="skills-item"><i class="fa fa-code"></i> <span>Web Development</span> <span class="experience">3 years</span></div>
+            <div class="skills-item"><i class="fa fa-database"></i> <span>Database Management</span> <span class="experience">2 years</span></div>
+            <div class="skills-item"><i class="fa fa-video"></i> <span>Video Editing</span> <span class="experience">6 years</span></div>
+            <div class="skills-item"><i class="fa fa-cogs"></i> <span>Problem Solving</span> <span class="experience">3 years</span></div>
+            <div class="skills-item"><i class="fa fa-laptop-code"></i> <span>Programming</span> <span class="experience">3 years</span></div>
+            <div class="skills-item"><i class="fa fa-project-diagram"></i> <span>Project Management</span> <span class="experience">3 years</span></div>
+        </div>
+    </div>
+
+    
+
+    <footer class="footer">
+        &copy; 2025 Kimberly Cunanan. All Rights Reserved.
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("header").classList.add("visible");
+                document.getElementById("about-container").classList.add("visible");
+                document.getElementById("interests").classList.add("visible");
+                document.getElementById("skills").classList.add("visible");
+            }, 200); 
+        });
+
+        function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const icon = document.querySelector(".toggle-dark-mode i");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+    }
+
+    window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("header").classList.add("visible");
+                document.querySelector(".education-container").style.opacity = "1";
+        document.querySelector(".education-container").style.transform = "translateY(0)";
+                
+            }, 200); 
+        });
+
+    </script>
+
+</body>
+</html>

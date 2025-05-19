@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimberky C. Portfolio</title>
+    <link rel="icon" type="image/png" href="weblogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100..900&family=Roboto+Condensed:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+
+        body {
+    background-color: #f3e7eb;
+    color: #756477;
+    overflow-x: hidden;
+    position: relative; /* Ensures the pseudo-element positions correctly */
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('klogo.png');
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* Adjust opacity */
+    z-index: -1; /* Ensures it stays in the background */
+}
+
+
+        .dark-mode {
+            background-color: #000000;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .nav-links a{
+            background-color: #000000;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .social-links a{
+            background-color: #000000;
+            color: #e0e0e0;
+        }
+
+        .dark-mode  button i{
+            background-color: #000000;
+            color: #e0e0e0;
+        }
+
+        .toggle-dark-mode {
+        background: none;
+        border: none;
+        color: #756477;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    .toggle-dark-mode:hover {
+        color: #b6b4c2;
+    }
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3e7eb;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1000;
+        }
+
+        .spinner-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .leo-border-1, .leo-border-2 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            padding: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            animation: spin3D 2s linear infinite;
+        }
+
+        .leo-border-1 {
+            background: linear-gradient(0deg, #697e5c, rgba(166, 124, 82, 1) 100%);
+        }
+
+        .leo-core-1, .leo-core-2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .leo-core-1 {
+            background-color: #a67c52aa;
+        }
+
+        .leo-border-2 {
+            background: linear-gradient(0deg, #697e5c, rgba(92, 61, 46, 1) 100%);
+            animation: spin3D 2.5s linear infinite reverse;
+        }
+
+        .leo-core-2 {
+            background-color: #5c3d2eaa;
+        }
+
+        @keyframes spin3D {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .landing-page {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            padding: 50px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .text-content {
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            font-family: arial black;
+        }
+
+        .text-content h1 {
+            font-size: 3rem;
+        }
+
+        
+
+        .profile-image {
+            width: 40%;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            
+        }
+
+        .profile-image img {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 10px;
+            margin-right: 50px;
+            margin-bottom: -30%;
+        }
+
+        .nav-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            margin-left: -5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #b6b4c2;
+            font-weight: bold;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #756477;
+            
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after { 
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            bottom: 0;
+            width: 80%;
+            height: 2px;
+            background-color: #756477; /* Underline color */
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 63%;
+            transform: translateX(-50%);
+            width: 75%;
+            height: 2px;
+            background-color: #756477;
+            
+        }
+
+        .lets-go-button {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .landing-page {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+               
+            }
+
+            .text-content {
+                width: 100%;
+                padding-bottom: 50px;
+            }
+
+            .profile-image {
+                width: 100%;
+                justify-content: center;
+                order: -1;
+                
+            }
+
+            .profile-image img {
+                width: 100%;
+                max-width: 300px;
+                
+            }
+            .lets-go-button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #756477;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+        }
+
+        svg {
+            font-weight: bold;
+            margin-right: -.5%;
+            margin-top: 3%;
+            margin-left: -20%;
+            
+        }
+
+        .nav-links svg {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    
+    display: inline-block;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* Space between SVG and text */
+    
+}
+
+.social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+           
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: #756477;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #b6b4c2;
+        }
+
+        .download-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #756477;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .download-button:hover {
+        background-color: #b6b4c2;
+    }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="loading-container" id="loading-screen">
+        <div class="spinner-box">
+            <div class="leo-border-1">
+                <div class="leo-core-1"></div>
+            </div> 
+            <div class="leo-border-2">
+                <div class="leo-core-2"></div>
+            </div> 
+        </div>
+    </div>
+
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+
+    <div class="landing-page" id="landing-page">
+        <div class="text-content" id="text-content">
+            <h1>Kimberly Cunanan</h1>
+            <p>Aspiring <span style="color: #756477; font-weight: bold;">Web Developer</span> from the Philippines</p>
+            <div class="nav-links">
+                <a class="nav-item" href="index.html" class="active"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                  </svg> Home</a>
+                  
+                <a class="nav-item" href="about.html"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                  </svg> About</a>
+
+                
+
+                <a class="nav-item" href="services.html"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                  </svg> Services</a>
+
+                <a class="nav-item" href="portfolio.html"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                  </svg> Portfolio</a>
+
+                <a class="nav-item" href="contact.html"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                  </svg> Contact</a>
+                
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1AVjRwoQ4z/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/kxmshy?igsh=N203cHF0dnVueHk5" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/kxmshyy" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <button id="download-cv" class="download-button">Download CV</button>
+
+            <a href="#about" class="lets-go-button">Let's Go</a>
+        </div>
+        <div class="profile-image" id="profile-image">
+            <img src="landpic.png" alt="Profile Picture">
+        </div>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById("loading-screen").style.opacity = "0";
+                setTimeout(function() {
+                    document.getElementById("loading-screen").style.display = "none";
+                    document.getElementById("landing-page").style.opacity = "1";
+                    document.getElementById("landing-page").style.display = "flex";
+                    
+                    document.getElementById("text-content").style.opacity = "1";
+                    document.getElementById("text-content").style.transform = "translateX(0)";
+                    
+                    document.getElementById("profile-image").style.opacity = "1";
+                    document.getElementById("profile-image").style.transform = "translateX(0)";
+                }, 1000);
+            }, 300);
+        };
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".nav-links a");
+
+    function setActiveLink() {
+        const currentPage = window.location.pathname.split("/").pop(); // Get current file name
+        links.forEach(link => {
+            const linkPage = link.getAttribute("href");
+            if (currentPage === linkPage || (currentPage === "" && linkPage === "index.html")) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    }
+
+    setActiveLink();
+});
+
+function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const icon = document.querySelector(".toggle-dark-mode i");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+    }
+   
+
+    document.getElementById("download-cv").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF("p", "mm", "a4");
+
+    const primaryColor = "#697e5c"; // Dark sidebar color
+    const secondaryColor = "#697e5c"; // Accent color
+    const textColor = "#ffffff"; // White text for sidebar
+    const mainTextColor = "#000000"; // Black text for main sections
+    const bgColor = "#f5f5f5"; // Light gray background
+
+    // Background
+    doc.setFillColor(bgColor);
+    doc.rect(0, 0, 210, 297, "F");
+
+    // Sidebar
+    doc.setFillColor(primaryColor);
+    doc.rect(0, 0, 70, 297, "F");
+
+    // Image
+    const imgURL = "https://raw.githubusercontent.com/kxmshyy/portfolioo/main/2x2.jpg";
+
+    fetch(imgURL)
+        .then((response) => response.blob())
+        .then((blob) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                const imgData = reader.result;
+
+                // Add profile image
+                doc.addImage(imgData, "JPEG", 10, 10, 50, 50);
+
+                // Sidebar Text
+                doc.setFont("", "bold");
+                doc.setFontSize(16);
+                doc.setTextColor(textColor);
+                doc.text("Kimberly F. Cunanan", 10, 70);
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(10);
+                doc.text("Information Technology Student", 10, 78);
+                doc.text("", 10, 84);
+
+                // Contact Info
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("CONTACT", 10, 100);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("0910xxxxxxx", 10, 110);
+                doc.text("misskimcnnn@gmail.com", 10, 118);
+                doc.text("kxmshyy.github.io", 10, 126);
+
+                // Skills
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("SKILLS", 10, 140);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("• Web Development", 10, 150);
+                doc.text("• Database Management", 10, 156);
+                doc.text("• Programming", 10, 162);
+
+                // References
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("INTERESTS", 10, 180);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("Reading Stories", 10, 190);
+                doc.text("Writing", 10, 196);
+                doc.text("Online Games", 10, 202);
+                doc.text("Pets", 10, 208);
+
+                // Right Side (Main Content)
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.setTextColor(mainTextColor);
+                doc.text("MY PROFILE", 80, 20);
+                doc.setFillColor(secondaryColor);
+                doc.rect(80, 22, 110, 2, "F");
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                const profileText = 
+                    "Hello! I'm Kimberly Cunanan, an aspiring Web Developer " +
+                    "with a passion for creating dynamic, user-friendly websites. " +
+                    "I enjoy turning ideas into interactive digital experiences using " +
+                    "HTML, CSS, JavaScript, and modern frameworks. Constantly learning " +
+                    "and improving, I'm excited to build innovative web solutions " +
+                    "and grow in the ever-evolving tech world.";
+
+                doc.text(profileText, 80, 30, { maxWidth: 110, align: "left" });
+
+                     // Services Section
+                     doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("SERVICES", 80, 70);
+                doc.setFillColor(secondaryColor);
+                doc.rect(80, 72, 110, 2, "F");
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("• Custom Web Development", 80, 80);
+                doc.text("• UI/UX Design", 80, 86);
+                doc.text("• Video Editing", 80, 92);
+
+               // Education Section
+               doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("EDUCATION", 80, 115);
+                doc.setFillColor(secondaryColor);
+                doc.rect(80, 117, 110, 2, "F");
+
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(13);
+                doc.text("Don Honorio Ventura State University | 2022 - Present", 80, 125);
+                doc.setFont("helvetica", "italic");
+                doc.setFontSize(12);
+                doc.text("BS in Information Technology", 80, 131);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("Achievements:", 80, 137);
+                doc.text("- President’s Lister - First Year 1st Semester", 80, 143);
+                doc.text("- President’s Lister - First Year 2nd Semester", 80, 149);
+                
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(13);
+                doc.text("Magalang Christian Ecumenical School Inc. | 2020 - 2022", 80, 157);
+                doc.setFont("helvetica", "italic");
+                doc.setFontSize(12);
+                doc.text("Accountancy, Business, and Management (ABM)", 80, 163);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("- With Honor - Grade 11", 80, 169);
+                doc.text("- With Honor - Grade 12", 80, 175);
+
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(13);
+                doc.text("Arayat National High School | 2016 - 2020", 80, 183);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("- With Honor - Grade 7 to Grade 10", 80, 189);
+
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(13);
+                doc.text("Buenavista Elementary School | 2009 - 2016", 80, 197);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("- First Honor (Grades 1-5), Class Valedictorian (Grade 6)", 80, 203);
+
+                // Languages Section
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(16);
+                doc.text("LANGUAGES", 80, 223);
+                doc.setFillColor(secondaryColor);
+                doc.rect(80, 225, 110, 2, "F");
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(12);
+                doc.text("- English", 80, 231);
+                doc.text("- Filipino", 80, 237);
+
+                // Save PDF
+                doc.save("KimberlyCunananCV.pdf");
+            };
+        })
+        .catch((error) => {
+            console.error("Failed to load image:", error);
+        });
+});
+
+    </script>
+</body>
+</html>
