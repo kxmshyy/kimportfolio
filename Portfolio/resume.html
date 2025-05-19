@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - Kimberly Cunanan</title>
+    <link rel="icon" type="image/png" href="weblogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+        body {
+            background-color: #f5ebe0;
+            color: #5c3d2e;
+            overflow-x: hidden;
+        }
+        /* Header Styling */
+        .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(245, 235, 224, 0.9);
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .header.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    h2 {
+        margin: 0;
+        color: #5c3d2e;
+    }
+
+
+        .toggle-dark-mode {
+        background: none;
+        border: none;
+        color: #5c3d2e;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .toggle-dark-mode:hover {
+        color: #697e5c;
+    }
+
+    /* CONTAINERS */
+    
+
+    /* DARK MODE STYLES */
+    .dark-mode {
+        background-color: #222;
+        color: white;
+    }
+    .dark-mode .header {
+        background: rgba(34, 34, 34, 0.9);
+    }
+
+    .dark-mode footer   {
+        background: rgba(34, 34, 34, 0.9);
+        color: white;
+    }
+
+    .dark-mode h2 {
+        color: white;
+    }
+
+    .dark-mode .education-container h3 {
+        color: white;
+    }
+
+    .dark-mode .toggle-dark-mode {
+        color: white;
+    }
+    .dark-mode .education-container, .dark-mode .education-item {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .interest-container {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .nav-links a{
+            
+            color: #e0e0e0;
+        }
+        
+
+        .nav-links a {
+            text-decoration: none;
+            color: #5c3d2e;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            color: #697e5c;
+        }
+
+         /* Responsive */
+         @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-title, .about-heading {
+                text-align: center;
+            }
+            .about-right {
+                padding-left: 0;
+            }
+        }
+
+        svg {
+            font-weight: bold;
+            margin-right: -.5%;
+            margin-top: 3%;
+            margin-left: -20%;
+            
+        }
+
+        
+        .nav-item {
+            
+            align-items: center;
+            gap: 1px; /* Space between SVG and text */
+            
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #5c3d2e;
+            font-weight: bold;
+            margin: 0 10px;
+            padding-bottom: 5px; /* Space for the underline */
+            display: inline-block;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 22%;
+            bottom: 0;
+            width: 75%;
+            height: 2px;
+            background-color: #697e5c; /* Underline color */
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #697e5c;
+                    
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after { 
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover {
+            color: #697e5c;
+        }
+
+        .nav-links svg {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+        }
+
+
+
+        .education-container {
+    max-width: 1300px;
+    margin: 90px auto 20px;
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Move down slightly */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.education-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .education-title {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .education-heading {
+            font-size: 2rem;
+            color: #697e5c;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .education-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 5px solid #697e5c;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .education-item h3 {
+            color: #5c3d2e;
+            font-size: 1.5rem;
+        }
+        .education-item p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .education-item span {
+            font-weight: bold;
+            color: #697e5c;
+        }
+
+        .achievements-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        .achievements-list li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(245, 235, 224, 0.9);
+            color: #5c3d2e;
+            font-size: 0.8rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="header-left">
+            <h2>Kimberly Cunanan</h2>
+            <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a class="nav-item" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Home
+            </a>
+            <a class="nav-item" href="about.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                About
+            </a>
+            <a class="nav-item active" class="nav-item" href="resume.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Resume
+            </a>
+            <a class="nav-item" href="services.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 1 0 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Services
+            </a>
+            <a class="nav-item" href="portfolio.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Portfolio
+            </a>
+            <a class="nav-item" href="contact.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Contact
+            </a>
+           
+        </div>
+    </div>
+    <div class="education-container" id="education-container">
+        <p class="education-title">Academic Journey</p>
+        <h1 class="education-heading">Educational Background</h1>
+        <div class="education-item">
+            <h3>Don Honorio Ventura State University</h3>
+            <p><span>Degree:</span> Bachelor of Science in Information Technology</p>
+            <p><span>Year:</span> 2022 - Present</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>President's Lister - First Year 1st Semester</li>
+                <li>President's Lister - First Year 2nd Semester</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Magalang Christian Ecumenical School Inc.</h3>
+            <p><span>Strand:</span> Accountancy, Business and Management (ABM)</p>
+            <p><span>Year:</span> 2020 - 2022</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>With Honor - Grade 11</li>
+                <li>With Honor - Grade 12</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Arayat National High School</h3>
+            <p><span>Year:</span> 2016 - 2020</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>With Honor - Grade 7</li>
+                <li>With Honor - Grade 8</li>
+                <li>With Honor - Grade 9</li>
+                <li>With Honor - Grade 10</li>
+            </ul>   
+        </div>
+        <div class="education-item">
+            <h3>Buenavista Elementary School</h3>
+            <p><span>Year:</span> 2009 - 2016</p>
+            <p><span>Achievements:</span></p>
+            <ul class="achievements-list">
+                <li>First Honor - Grade 1</li>
+                <li>First Honor - Grade 2</li>
+                <li>First Honor - Grade 3</li>
+                <li>First Honor - Grade 4</li>
+                <li>First Honor - Grade 5</li>
+                <li>Class Valedictorian - Grade 6</li>
+               
+            </ul>   
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 Kimberly Cunanan. All Rights Reserved.
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("header").classList.add("visible");
+                document.querySelector(".education-container").style.opacity = "1";
+        document.querySelector(".education-container").style.transform = "translateY(0)";
+                
+            }, 200); 
+        });
+
+        function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const icon = document.querySelector(".toggle-dark-mode i");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+    }
+    </script>
+
+</body>
+</html>

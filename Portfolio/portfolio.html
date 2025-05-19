@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Kimberly Cunanan</title>
+    <link rel="icon" type="image/png" href="weblogo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+        body {
+            background-color: #f3e7eb;
+            color: #756477;
+            overflow-x: hidden;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #f3e7eb;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        h2 {
+            margin: 0;
+            color: #756477;
+        }
+        .toggle-dark-mode {
+            background: none;
+            border: none;
+            color: #756477;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .toggle-dark-mode:hover {
+            color: #b6b4c2;
+        }
+        /* DARK MODE STYLES */
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .dark-mode .header {
+            background: rgba(34, 34, 34, 0.9);
+        }
+        .dark-mode footer {
+            background: rgba(34, 34, 34, 0.9);
+            color: white;
+        }
+        .dark-mode h2, .dark-mode .services-container h3, .dark-mode .toggle-dark-mode {
+            color: white;
+        }
+        .dark-mode .services-container, .dark-mode .service-item {
+            background: #333;
+            color: white;
+        }
+        .dark-mode .cta {
+            background: #222;
+            color: white;
+        }
+        .dark-mode .modal-content, .dark-mode .interest-container {
+            background: #333;
+            color: white;
+        }
+        .dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .port-item.published {
+        background: #333;
+        color: white;
+    }
+
+    .dark-mode .port-item.unpublished {
+        background: #333;
+        color: white;
+    }
+
+    
+
+        .nav-links a {
+            text-decoration: none;
+            color: #756477;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            color: #756477;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-title, .about-heading {
+                text-align: center;
+            }
+            .about-right {
+                padding-left: 0;
+            }
+            .services-list {
+                flex-direction: column;
+            }
+        }
+        svg {
+            font-weight: bold;
+            margin-right: -.5%;
+            margin-top: 3%;
+            margin-left: -20%;
+        }
+        .nav-item {
+            align-items: center;
+            gap: 1px; /* Space between SVG and text */
+        }
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #b6b4c2;
+            font-weight: bold;
+            margin: 0 10px;
+            padding-bottom: 5px; /* Space for the underline */
+            display: inline-block;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 22%;
+            bottom: 0;
+            width: 75%;
+            height: 2px;
+            background-color: #756477; /* Underline color */
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #756477;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after { 
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .nav-links svg {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background: #f3e7eb;
+            color: #5c3d2e;
+            font-size: 0.8rem;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        .more-info {
+            display: none;
+        }
+        .toggle-btn {
+            margin-top: 10px;
+            background-color: #756477;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .toggle-btn:hover {
+            background: #756477;
+        }
+        .portfolio-items-wrapper {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .portfolio-item {
+            min-width: 100%;
+            max-width: 1000px;
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures full image visibility */
+            border-radius: 8px;
+        }
+        .portfolio-item h3 {
+            margin: 10px 0 5px;
+        }
+        .portfolio-item p {
+            font-size: 0.9rem;
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 250px; /* Reduce padding to bring buttons closer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #756477;
+            font-size: 30px;
+        }
+        .nav-btn:hover {
+            transform: scale(1.2);
+        }
+        .portfolio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0; /* Start hidden */
+    transform: translateY(30px); /* Start slightly below */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Animation properties */
+}
+
+.portfolio-container.visible {
+    opacity: 1; /* Make fully visible */
+    transform: translateY(0); /* Move to original position */
+}
+        .port-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Space between items */
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .portfolio-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .port-item {
+    position: relative; /* Make it relative for the absolute positioning of the hover text */
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure the hover text doesn't overflow */
+    transition: background 0.3s; /* Smooth transition for background */
+}
+
+.port-item a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit color from parent */
+    display: block; /* Make the anchor fill the entire port-item */
+    height: 100%; /* Ensure it takes full height */
+}
+
+.port-item:hover {
+    background: #b6b4c2; /* Gray background on hover */
+}
+
+.port-item::after {
+    content: ""; /* Default empty content */
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the text */
+    background: rgba(0, 0, 0, 0.7); /* Background color */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s; /* Smooth transition */
+    pointer-events: none; /* Prevent interaction with the text */
+}
+
+.port-item.published:hover::after {
+    content: "View Project"; /* Show "Click link" for published items */
+    opacity: 1; /* Show on hover */
+}
+
+.port-item.unpublished:hover::after {
+    content: "Project is not yet published"; /* Show message for unpublished items */
+    opacity: 1; /* Show on hover */
+}
+
+.get-in-touch-btn {
+    background-color: #756477; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    padding: 12px 24px; /* Padding for the button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Font size */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
+    width: 100%; /* Make the button take full width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    font-weight: bold; /* Make the text bold */
+}
+
+.get-in-touch-btn:hover {
+    background-color: #b6b4c2; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.get-in-touch-btn:active {
+    transform: translateY(0); /* Reset lift effect on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+.port-item {
+    position: relative; /* Make it relative for the absolute positioning of the hover text */
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: calc(33.33% - 20px); /* Default width for most items */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure the hover text doesn't overflow */
+    transition: background 0.3s; /* Smooth transition for background */
+}
+
+.portt-item {
+    position: relative; /* Make it relative for the absolute positioning of the hover text */
+    background: #ffffff00;
+    padding: 50px;
+    border-radius: 10px;
+    
+    text-align: center; /* Center the text */
+    width: calc(33.33% - 20px); /* Default width for most items */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure the hover text doesn't overflow */
+    transition: background 0.3s; /* Smooth transition for background */
+}
+
+.portt-item:last-child {
+    width: 100%; /* Make the "Get in Touch" item take full width */
+}
+
+
+
+
+
+        .port-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .port-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* Space between items */
+            flex-wrap: wrap; /* Allow items to wrap */
+        }
+        .laptop-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .laptop-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Laptop Frame */
+        .laptop-frame {
+            position: relative;
+            width: 700px;
+            background: #2b2b2b;
+            border-radius: 30px 30px 10px 10px;
+            padding: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 4px solid #1c1c1c;
+            margin-top: 10px;
+        }
+        /* Laptop Screen */
+        .laptop-screen {
+            position: relative;
+            width: 100%;
+            height: 400px; /* Keep it fixed so images don’t stretch */
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black; /* Optional: Helps blend the images better */
+        }
+        /* Portfolio Wrapper */
+        .portfolio-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .portfolio-item.active {
+            opacity: 1; /* Only show the active image */
+        }
+        /* Individual Portfolio Item */
+        .portfolio-item {
+            background: none;
+            border-radius: 10px;
+            text-align: center;
+            width: 450px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the area but may crop */
+        }
+        /* Laptop Base */
+        .laptop-base {
+            width: 65%;
+            height: 20px;
+            background: linear-gradient(to top, #1c1c1c, #333);
+            border-radius: 0 0 15px 15px;
+            box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+            margin-top: -5px;
+            margin-bottom: 60px;
+        }
+
+        
+
+        .cta-button {
+    display: inline-block;
+    margin-top: 20px; /* Add margin to the top of the button */
+    padding: 12px 24px; /* Increased padding for a more substantial button */
+    background: #756477; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make the text bold */
+    border-radius: 5px; /* Rounded corners */
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition */
+    width: 100%; /* Make the button take full width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center the text */
+}
+
+.cta-button:hover {
+    background: #b6b4c2; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.cta-button:active {
+    transform: translateY(0); /* Reset lift effect on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+    </style>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="header-left">
+            <h2>Kimberly Cunanan</h2>
+            <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a class="nav-item" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Home
+            </a>
+            <a class="nav-item" href="about.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                About
+            </a>
+            <a class="nav-item" href="services.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Services
+            </a>
+            <a class="nav-item active" href="portfolio.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Portfolio
+            </a>
+            <a class="nav-item" href="contact.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+                </svg>
+                Contact
+            </a>
+        </div>
+    </div>
+
+    <div class="laptop-container">
+        <div class="laptop-frame">
+            <div class="laptop-screen">
+                <div class="portfolio-wrapper">
+                    <div class="portfolio-item">
+                        <img src="attendify.jpg" alt="Project 1">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="brgy.jpg" alt="Project 2">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="reserve.jpg" alt="Project 3">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="bulaone.jpg" alt="Project 4">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="calcu.png" alt="Project 5">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="pb.png" alt="Project 6">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="famtree.png" alt="Project 7">
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="gresume.png" alt="Project 8">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="laptop-base"></div>
+    </div>  
+    
+    <div class="nav-buttons">
+        <button id="prev" class="nav-btn">&#9664;</button>
+        <button id="next" class="nav-btn">&#9654;</button>
+    </div>
+    
+
+    <div class="portfolio-container">
+        <div class="portfolio-wrapper">
+            <div class="port-list">
+                <div class="port-item unpublished">
+                    <img src="attendify.jpg" alt="Project 1">
+                    <h3>Attendify</h3>
+                    <p>A digital attendance monitoring system.</p>
+                </div>
+                <div class="port-item unpublished">
+                    <img src="brgy.jpg" alt="Project 2">
+                    <h3>Barangay Management System</h3>
+                    <p>A system for managing barangay records.</p>
+                </div>
+                <div class="port-item unpublished">
+                    <img src="reserve.jpg" alt="Project 3">
+                    <h3>Reservation System</h3>
+                    <p>An online booking and reservation system.</p>
+                </div>
+                <div class="port-item unpublished">
+                    <img src="bulaone.jpg" alt="Project 4">
+                    <h3>Barangay Management System</h3>
+                    <p>A system for managing barangay records.</p>
+                </div>
+                <div class="port-item published">
+                    <a href="https://kxmshyy.github.io/calculator/">
+                    <img src="calcu.png" alt="Project 5">
+                    <h3>Web Calculator</h3>
+                    <p>An online web Calculator with different themes.</p>
+                </a>
+                </div>
+                <div class="port-item published">
+                    <a href="https://kxmshyy.github.io/photobooth/">
+                    <img src="pb.png" alt="Project 6">
+                    <h3>Web Photobooth</h3>
+                    <p>An online Photobooth with different themes</p>
+                </a>
+                </div>
+                <div class="port-item published">
+                    <a href="https://kxmshyy.github.io/familytree/">
+                    <img src="famtree.png" alt="Project 7">
+                    <h3>Family Tree</h3>
+                    <p>A personal Family Tree for a school project.</p>
+                </a>
+                </div>
+                
+                <div class="portt-item">
+                    <h2>Let's Build Something Amazing</h2>
+                    <p>Contact me today to discuss your project.</p>
+                    <a href="contact.html" class="cta-button">Get in Touch</a>
+                </div>
+
+                <div class="port-item published">
+                    <a href="https://kxmshyy.github.io/portfolio/">
+                    <img src="gresume.png" alt="Project 8">
+                    <h3>Group Resume</h3>
+                    <p>A compilation of our resume for a school project.</p>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 Kimberly Cunanan. All Rights Reserved.
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("header").classList.add("visible");
+                document.querySelector(".laptop-container").classList.add("visible");
+                
+            }, 200); 
+        });
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const icon = document.querySelector(".toggle-dark-mode i");
+            icon.classList.toggle("fa-moon");
+            icon.classList.toggle("fa-sun");
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const portfolioWrapper = document.querySelector(".portfolio-wrapper");
+    const items = document.querySelectorAll(".portfolio-item");
+    const totalItems = items.length;
+    let currentIndex = 0;
+
+    function showItem(index) {
+        portfolioWrapper.style.transition = "transform 0.5s ease-in-out";
+        portfolioWrapper.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    
+
+            document.getElementById("next").addEventListener("click", () => {
+                currentIndex = (currentIndex + 1) % totalItems;
+                showItem(currentIndex);
+            });
+
+            document.getElementById("prev").addEventListener("click", () => {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                showItem(currentIndex);
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+        const items = document.querySelectorAll(".portfolio-item");
+        const totalItems = items.length;
+        let currentIndex = 0;
+
+        function updateActiveImage() {
+            items.forEach((item, index) => {
+                item.classList.toggle("active", index === currentIndex);
+                item.style.opacity = index === currentIndex ? '1' : '0'; // Control opacity directly
+                item.style.transform = index === currentIndex ? 'translateY(0)' : 'translateY(20px)'; // Control transformation
+            });
+        }
+
+        function showItem(index) {
+            currentIndex = index;
+            updateActiveImage();
+        }
+
+        document.getElementById("next").addEventListener("click", () => {
+            showItem((currentIndex + 1) % totalItems);
+        });
+
+        document.getElementById("prev").addEventListener("click", () => {
+            showItem((currentIndex - 1 + totalItems) % totalItems);
+        });
+
+        // Initialize
+        updateActiveImage();
+    });
+
+    window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("header").classList.add("visible");
+        document.querySelector(".laptop-container").classList.add("visible");
+        document.querySelector(".portfolio-container").classList.add("visible"); // Add this line
+    }, 200); 
+});
+        
+    </script>
+</body>
+</html>
